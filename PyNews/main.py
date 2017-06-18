@@ -38,7 +38,7 @@ def main(args=sys.argv[0]):
     parser = Parser()
     parser.feed(r.text)
     parser.close()
-    print(parser.data[0])
+    print(parser.data)
 
 if __name__ == '__main__':
     main()
