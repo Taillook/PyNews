@@ -6,8 +6,6 @@ from py_news.news import News_parser
 
 
 def main():
-    topic_list = ["h", "w", "b", "n", "t", "el", "p", "e", "s", "m"]
-
     arg_parser = argparse.ArgumentParser(description="")
     arg_parser.add_argument("--topic", type=str, default="t")
     arg_parser.add_argument("--amount", type=str, default="20")
@@ -17,8 +15,6 @@ def main():
 
     if args.amount > 20:
         args.amount = 20
-    if args.topic not in topic_list:
-        args.topic = "h"
 
     payload = {"topic": args.topic}
     r = requests.get('https://news.google.com/news/section', params=payload)
