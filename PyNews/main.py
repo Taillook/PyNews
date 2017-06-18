@@ -3,7 +3,6 @@
 
 import requests
 from html.parser import HTMLParser
-import sys
 import argparse
 
 
@@ -31,13 +30,13 @@ class Parser(HTMLParser):
             self.link = False
 
 
-def main(args=sys.argv[0]):
+def main():
     topic_list = ["h", "w", "b", "n", "t", "el", "p", "e", "s", "m"]
 
-    parser = argparse.ArgumentParser(description="")
-    parser.add_argument("--topic", type=str, default="t")
-    parser.add_argument("--amount", type=str, default="20")
-    args = parser.parse_args()
+    arg_parser = argparse.ArgumentParser(description="")
+    arg_parser.add_argument("--topic", type=str, default="t")
+    arg_parser.add_argument("--amount", type=str, default="20")
+    args = arg_parser.parse_args()
 
     args.amount = int(args.amount)
 
