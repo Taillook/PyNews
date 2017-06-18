@@ -4,6 +4,7 @@
 import requests
 from html.parser import HTMLParser
 import sys
+import argparse
 
 
 class Parser(HTMLParser):
@@ -31,12 +32,30 @@ class Parser(HTMLParser):
 
 
 def main(args=sys.argv[0]):
-    payload = {'topic': 't'}
+    topic_list = ["h", "w", "b", "n", "t", "el", "p", "e", "s", "m"]
+
+    parser = argparse.ArgumentParser(description="")
+    parser.add_argument("--topic", type=str, default="t")
+    parser.add_argument("--amount", type=str, default="20")
+    args = parser.parse_args()
+
+    args.amount = int(args.amount)
+
+    if args.amount > 20:
+        args.amount = 20
+    if args.topic not in topic_list:
+        args.topic = "h"
+
+    payload = {'topic': args.topic}
     r = requests.get('https://news.google.com/news/section', params=payload)
     parser = Parser()
     parser.feed(r.text)
     parser.close()
-    print(parser.data)
+
+    parser.data = parser.data[0:args.amount]
+
+    for i in parser.data:
+        print("Title: " + i["title"], "\nLink: " + i["link"] + "\n")
 
 
 if __name__ == '__main__':
